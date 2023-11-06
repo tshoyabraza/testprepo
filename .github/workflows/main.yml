@@ -1,0 +1,21 @@
+name: Sync Files
+
+on:
+  repository_dispatch:
+    types: [sync]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Target Repository
+        uses: actions/checkout@v2
+
+      - name: Sync Files from Source Repository
+        run: |
+          git config --global user.name "shoyabrazat"
+          git config --global user.email "shoyu.shoyu21@gmail.com"
+          git pull https://github.com/shoyabrazat/testrepo.git main --no-edit
+          git push
+        working-directory: ./
